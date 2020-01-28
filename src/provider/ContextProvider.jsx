@@ -6,7 +6,7 @@ import Context from '../config/Context';
 import { GameNode } from '../components';
 import { addNode, moveNode } from '../components/gameLogic';
 
-var beep = new Audio('/audio/beep.mp3');
+var beep = new Audio('../assets/audio/beep.mp3');
 
 const ContextProvider = props => {
   const { children } = props;
@@ -28,6 +28,10 @@ const ContextProvider = props => {
   useEffect(() => {
     checkGameState();
   }, [gameBoard]);
+
+  const toggleSound = () => {
+    setSound(prev => !prev);
+  };
 
   const initializeBoard = () => {
     setGameBoard(addNode(gameBoard, 2, score));
@@ -113,7 +117,9 @@ const ContextProvider = props => {
         left,
         right,
         score,
-        gameOver
+        gameOver,
+        sound,
+        toggleSound
       }}
     >
       {children}

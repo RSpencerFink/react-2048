@@ -3,6 +3,9 @@ import styled from 'styled-components';
 
 import Context from '../config/Context';
 
+import VolOff from '../assets/images/vol-off.svg';
+import VolOn from '../assets/images/vol-on.svg';
+
 const colors = {
   0: '#fff',
   2: 'blue',
@@ -21,7 +24,7 @@ const colors = {
 const GameContainer = styled.div`
   height: 100%;
   width: 100%;
-  background-color: grey;
+  background-color: #162a38;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,6 +35,23 @@ const Score = styled.span`
   top: 64px;
   right: 64px;
   font-family: sans-serif;
+  font-weight: bold;
+  color: #fff;
+`;
+
+const MuteButton = styled.img`
+  position: absolute;
+  bottom: 64px;
+  right: 64px;
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  cursor: pointer;
+  border: none;
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const GameCol = styled.div`
@@ -42,7 +62,7 @@ const GameCol = styled.div`
   flex-direction: column;
   background-color: #b5b5b5;
   border-radius: 10px;
-  box-shadow: 0px 0px 20px 0px #00000050;
+  box-shadow: 0px 0px 20px 0px #000000a3;
 `;
 
 const GameRow = styled.div`
@@ -80,7 +100,17 @@ const Tile = styled.div`
 
 const GameBoard = () => {
   const context = useContext(Context);
-  const { gameBoard, up, down, left, right, score, gameOver } = context;
+  const {
+    gameBoard,
+    up,
+    down,
+    left,
+    right,
+    score,
+    gameOver,
+    sound,
+    toggleSound
+  } = context;
 
   const generateTiles = () => {
     return gameBoard.map((row, idx) => {
@@ -123,6 +153,7 @@ const GameBoard = () => {
     <GameContainer tabIndex="0" onKeyDown={handleKeyPress}>
       <Score>{`SCORE: ${score}`}</Score>
       <GameCol>{generateTiles()}</GameCol>
+      <MuteButton src={sound ? VolOn : VolOff} onClick={toggleSound} />
     </GameContainer>
   );
 };

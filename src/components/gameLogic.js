@@ -26,11 +26,11 @@ const addNode = (board, numNodes, score) => {
 
 const moveNode = (coords, board, direction) => {
   const [row, col] = coords;
-  const value = board[row][col].value;
+  let value = board[row][col].value;
   if (!value) return board;
   switch (direction) {
     case 'up':
-      for (let idx = row; idx > 0; idx--) {
+      for (let idx = row; idx >= 0; idx--) {
         if (board[idx - 1][col].value === value) {
           if (!board[idx - 1][col].merged && !board[idx][col].merged) {
             board[idx][col].value = 0;
